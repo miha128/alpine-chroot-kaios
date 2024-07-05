@@ -16,14 +16,19 @@ your shell should look like this
 
 download the alpine rootfs with cURL from https://alpinelinux.org/downloads/ 
 if the command below fails, replace with http, beware if you're using public wifi tho.
+
 `curl -o rootfs https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/armhf/alpine-minirootfs-3.20.1-armhf.tar.gz`
+
 http version
+
 `curl -o rootfs http://dl-cdn.alpinelinux.org/alpine/v3.20/releases/armhf/alpine-minirootfs-3.20.1-armhf.tar.gz`
 
 to extract it, we have to use the built-in busybox binary for our system, the embedded tar binary throws an error.
+
 `busybox tar -xvzf rootfs`
 
 our folder structure should look something like this, verify with ls -l 
+
 `drwxr-xr-x root     root              2024-07-05 10:32 bin`  
 `drwxrwxrwx root     root              2024-07-05 11:54 data`  
 `drwxr-xr-x root     root              2024-06-18 17:17 dev`  
@@ -42,18 +47,26 @@ our folder structure should look something like this, verify with ls -l
 `drwxrwxrwt root     root              2024-07-05 11:58 tmp`  
 `drwxr-xr-x root     root              2024-07-05 10:32 usr`  
 `drwxr-xr-x root     root              2024-07-04 23:23 var`  
+
 *note: i deleted the rootfs file, i don't need it, you can delete it too with `rm rootfs`.*
 
 now, it's time to "bind" our filesystem, so the rootfs can actually be usable
 save this as a script, or copy and paste it into adb shell
 
 `mount -o bind /dev /data/ubuntu/dev`
+
 `mount -o bind /sys /data/ubuntu/sys`
+
 `mount -o bind /proc /data/ubuntu/proc`
+
 `mount -o bind /dev/pts /data/ubuntu/dev/pts`
+
 `export PATH=/bin:/sbin:/usr/bin:/usr/sbin`
+
 `export TERM=$TERM`
+
 `export TMPDIR=/tmp`
+
 `/system/bin/chroot .`
 
 *note: /dev/pts is it's own fs, we have to mount it separately.*
@@ -76,11 +89,13 @@ installing a package is done with `apk add *package name*`
 unless, you want to also have a GUI accessible with a vnc server, we MUST do something about this.
 
 run these in order.
+
 `apk add alpine-conf`
 `setup-xorg-base`
 `apk add x11vnc xvfb`
 
 run with this specific command.
+
 `x11vnc -create -noshm -forever`
 
 without -noshm you will NOT be able to use a GUI because of a bug.
