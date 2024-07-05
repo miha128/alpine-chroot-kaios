@@ -53,19 +53,21 @@ our folder structure should look something like this, verify with ls -l
 now, it's time to "bind" our filesystem, so the rootfs can actually be usable
 save this as a script, or copy and paste it into adb shell
 
-`mount -o bind /dev /data/ubuntu/dev`
+`busybox mount -o bind /sys /data/ubuntu/sys`  
 
-`mount -o bind /sys /data/ubuntu/sys`
+`busybox mount -o bind /proc /data/ubuntu/proc`  
 
-`mount -o bind /proc /data/ubuntu/proc`
+`busybox mount -o bind /dev/pts /data/ubuntu/dev/pts`  
 
-`mount -o bind /dev/pts /data/ubuntu/dev/pts`
+`busybox mount -o bind /dev/ashmem /data/ubuntu/dev/ashmem`  
 
-`export PATH=/bin:/sbin:/usr/bin:/usr/sbin`
+`busybox mount -o rbind /dev /data/ubuntu/dev`  
 
-`export TERM=$TERM`
+`export PATH=/bin:/sbin:/usr/bin:/usr/sbin`  
 
-`export TMPDIR=/tmp`
+`export TERM=$TERM`  
+
+`export TMPDIR=/tmp`  
 
 `/system/bin/chroot .`
 
