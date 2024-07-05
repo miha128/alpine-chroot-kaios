@@ -1,5 +1,7 @@
 # alpine chroot KaiOS
 chroot into alpine linux using a nokia 6300 4g as an example.
+screenshot: 
+!(screenshot)[https://github.com/miha128/alpine-chroot-kaios/blob/main/2024-07-05_12-28.png]
 prequisites:
 **ROOTED** phone.
 adb shell access with root privileges.
